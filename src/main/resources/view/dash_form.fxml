@@ -30,6 +30,6 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
-      <PasswordField fx:id="txtPassword" layoutX="199.0" layoutY="200.0" />
+      <PasswordField fx:id="txtPassword" layoutX="199.0" layoutY="200.0" promptText="password" />
    </children>
 </AnchorPane>
