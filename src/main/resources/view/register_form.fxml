@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="465.0" prefWidth="491.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterFormController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000017" height="400.0" layoutX="60.0" layoutY="33.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="371.0" />
+      <Label layoutX="208.0" layoutY="43.0" text="Sign Up">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="86.0" layoutY="93.0" text="Employee / Admin ID" />
+      <Label layoutX="86.0" layoutY="128.0" text="Name" />
+      <Label layoutX="86.0" layoutY="162.0" text="Role" />
+      <Label layoutX="86.0" layoutY="197.0" text="Address" />
+      <Label layoutX="86.0" layoutY="232.0" text="NIC" />
+      <Label layoutX="86.0" layoutY="267.0" text="Contact" />
+      <Label layoutX="86.0" layoutY="302.0" text="Email" />
+      <TextField fx:id="txtId" layoutX="210.0" layoutY="89.0" promptText="E01 / A01" />
+      <TextField fx:id="txtName" layoutX="210.0" layoutY="124.0" />
+      <TextField fx:id="txtAddress" layoutX="211.0" layoutY="193.0" />
+      <TextField fx:id="txtNIC" layoutX="210.0" layoutY="228.0" />
+      <TextField fx:id="txtNumber" layoutX="211.0" layoutY="263.0" promptText="+94" />
+      <TextField fx:id="txtEmail" layoutX="211.0" layoutY="298.0" promptText="example@gmail.com" />
+      <ComboBox fx:id="cmbRole" layoutX="210.0" layoutY="158.0" prefWidth="150.0" />
+      <Label layoutX="86.0" layoutY="337.0" text="Password" />
+      <Label layoutX="86.0" layoutY="358.0" text="(8 characters or more, including numbers, letters, and symbols)" textFill="#000000ae" />
+      <JFXButton layoutX="351.0" layoutY="390.0" onAction="#btnSignUpOnAction" style="-fx-background-color: #3498db;" text="Sign up" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <PasswordField fx:id="txtPassword" layoutX="212.0" layoutY="333.0" />
+   </children>
+</AnchorPane>
