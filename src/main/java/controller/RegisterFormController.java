@@ -11,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.User;
 import service.ServiceFactory;
+import service.SuperService;
 import service.custom.UserService;
 import util.ServiceType;
 
@@ -18,6 +19,15 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class RegisterFormController implements Initializable {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        ObservableList<String> roleList = FXCollections.observableArrayList();
+        roleList.add("Admin");
+        roleList.add("Employee");
+        cmbRole.setItems(roleList);
+
+    }
 
     @FXML
     private ComboBox<String> cmbRole;
@@ -42,15 +52,6 @@ public class RegisterFormController implements Initializable {
 
     @FXML
     private PasswordField txtPassword;
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        ObservableList<String> roleList = FXCollections.observableArrayList();
-        roleList.add("Admin");
-        roleList.add("Employee");
-        cmbRole.setItems(roleList);
-    }
 
     @FXML
     void btnSignUpOnAction(ActionEvent event) {

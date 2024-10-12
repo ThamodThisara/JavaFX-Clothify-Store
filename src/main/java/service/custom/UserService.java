@@ -1,10 +1,9 @@
 package service.custom;
 
 import model.User;
-import model.UserLogin;
 import service.SuperService;
 
 public interface UserService extends SuperService {
-    boolean userLogin(UserLogin login);
+    boolean login(String username, String password);
     boolean addUser(User user);
 }

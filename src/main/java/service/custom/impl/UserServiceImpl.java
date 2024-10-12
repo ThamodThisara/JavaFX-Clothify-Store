@@ -2,7 +2,6 @@ package service.custom.impl;
 
 import entity.UserEntity;
 import model.User;
-import model.UserLogin;
 import org.modelmapper.ModelMapper;
 import repository.DaoFactory;
 import repository.custom.UserDao;
@@ -11,8 +10,7 @@ import util.DaoType;
 
 public class UserServiceImpl implements UserService {
     @Override
-    public boolean userLogin(UserLogin login) {
-        System.out.println(login);
+    public boolean login(String username, String password) {
         return false;
     }
 
