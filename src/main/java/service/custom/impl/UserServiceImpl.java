@@ -1,13 +1,19 @@
 package service.custom.impl;
 
 import entity.UserEntity;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.User;
 import model.UserLogin;
 import org.modelmapper.ModelMapper;
 import repository.DaoFactory;
+import repository.SuperDao;
 import repository.custom.UserDao;
 import service.custom.UserService;
 import util.DaoType;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserServiceImpl implements UserService {
 
@@ -33,5 +39,12 @@ public class UserServiceImpl implements UserService {
         UserDao repository = DaoFactory.getInstance().getDao(DaoType.USER);
 
         return repository.addUser(entity);
+    }
+
+    @Override
+    public ObservableList<UserEntity> getAllUsers() {
+        UserDao repository = DaoFactory.getInstance().getDao(DaoType.USER);
+        return repository.getAllUsers();
+
     }
 }
