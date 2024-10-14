@@ -10,20 +10,28 @@ import service.custom.UserService;
 import util.DaoType;
 
 public class UserServiceImpl implements UserService {
+
     @Override
-    public boolean userLogin(UserLogin login) {
-        System.out.println(login);
-        return false;
+    public int userLogin(UserLogin login) {
+        UserDao repository = DaoFactory.getInstance().getDao(DaoType.USER);
+        UserEntity userEntity = repository.findByEmail(login.getUsername());
+        boolean isValidLogin = userEntity != null && userEntity.getPassword().equals(login.getPassword());
+        if (isValidLogin) {
+            boolean admin = userEntity.getRole().equals("Admin");
+            if (admin) {
+                return -1;
+            } else {
+                return 1;
+            }
+        }
+        return 0;
     }
 
     @Override
     public boolean addUser(User user) {
-        System.out.println("Service :"+user);
-
         UserEntity entity = new ModelMapper().map(user, UserEntity.class);
         UserDao repository = DaoFactory.getInstance().getDao(DaoType.USER);
 
         return repository.addUser(entity);
-
     }
 }

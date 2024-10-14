@@ -29,9 +29,27 @@ public class DashFormController {
 
         UserLogin login = new UserLogin(txtUserName.getText(), txtPassword.getText());
 
-        if(userService.userLogin(login)){
-            System.out.println("Hi");
-        } else {
+        if(userService.userLogin(login) == -1){
+
+            try {
+                Stage stage = new Stage();
+                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/admin_dash_form.fxml"))));
+                stage.setTitle("Admin Dashboard");
+                stage.show();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else if (userService.userLogin(login) == 1){
+
+            try {
+                Stage stage = new Stage();
+                stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/employee_dash_form.fxml"))));
+                stage.setTitle("Employee Dashboard");
+                stage.show();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else if (userService.userLogin(login) == 0) {
             new Alert(Alert.AlertType.ERROR,"Login Failed").show();
         }
     }
