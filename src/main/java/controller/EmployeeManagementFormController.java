@@ -5,9 +5,11 @@ import entity.UserEntity;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.User;
 import org.modelmapper.ModelMapper;
 import service.ServiceFactory;
 import service.custom.UserService;
@@ -15,6 +17,7 @@ import util.ServiceType;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
 
 public class EmployeeManagementFormController implements Initializable {
 
@@ -98,7 +101,14 @@ public class EmployeeManagementFormController implements Initializable {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
-
+        if (userService.deleteUser(Long.parseLong(txtId.getText()))) {
+            new Alert(Alert.AlertType.INFORMATION, "User Deleted Successfully").show();
+            loadTable();
+            clearTxtField();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "User Not Deleted Successfully").show();
+            clearTxtField();
+        }
     }
 
     @FXML
@@ -108,16 +118,64 @@ public class EmployeeManagementFormController implements Initializable {
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
-
+        User user = userService.searchUser(Long.parseLong(txtId.getText()));
+        if (user != null) {
+            txtName.setText(user.getName());
+            txtAddress.setText(user.getAddress());
+            txtNic.setText(user.getNic());
+            txtEmail.setText(user.getEmail());
+            txtNumber.setText(user.getNumber());
+            txtRole.setText(user.getRole());
+        }  else {
+            new Alert(Alert.AlertType.ERROR, "User Not Found").show();
+        }
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
+        User existingUser = userService.searchUser(Long.parseLong(txtId.getText()));
 
+        if (existingUser != null) {
+            UserEntity userEntity = new UserEntity(
+                    Long.parseLong(txtId.getText()),
+                    txtName.getText(),
+                    txtRole.getText(),
+                    txtAddress.getText(),
+                    txtNic.getText(),
+                    txtNumber.getText(),
+                    txtEmail.getText(),
+                    existingUser.getPassword()
+            );
+            if (userService.updateUser(userEntity)) {
+                new Alert(Alert.AlertType.INFORMATION, "User Updated Successfully").show();
+                loadTable();
+                clearTxtField();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "User Not Updated Successfully").show();
+                clearTxtField();
+            }
+        } else {
+            new Alert(Alert.AlertType.ERROR, "User not found").show();
+        }
+    }
+
+    @FXML
+    void btnClearOnAction(ActionEvent actionEvent) {
+        clearTxtField();
     }
 
     private void loadTable(){
         tblUsers.setItems(userService.getAllUsers());
+    }
+
+    private void clearTxtField(){
+        txtId.clear();
+        txtName.clear();
+        txtAddress.clear();
+        txtNic.clear();
+        txtEmail.clear();
+        txtNumber.clear();
+        txtRole.clear();
     }
 
 }
