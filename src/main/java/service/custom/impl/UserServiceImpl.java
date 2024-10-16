@@ -4,6 +4,7 @@ import entity.UserEntity;
 import javafx.collections.ObservableList;
 import model.User;
 import model.UserLogin;
+import org.mindrot.jbcrypt.BCrypt;
 import org.modelmapper.ModelMapper;
 import repository.DaoFactory;
 import repository.custom.UserDao;
@@ -16,7 +17,7 @@ public class UserServiceImpl implements UserService {
     public int userLogin(UserLogin login) {
         UserDao repository = DaoFactory.getInstance().getDao(DaoType.USER);
         UserEntity userEntity = repository.findByEmail(login.getUsername());
-        boolean isValidLogin = userEntity != null && userEntity.getPassword().equals(login.getPassword());
+        boolean isValidLogin = userEntity != null && BCrypt.checkpw(login.getPassword(),userEntity.getPassword());
         if (isValidLogin) {
             boolean admin = userEntity.getRole().equals("Admin");
             if (admin) {

@@ -10,6 +10,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.User;
+import org.mindrot.jbcrypt.BCrypt;
 import service.ServiceFactory;
 import service.SuperService;
 import service.custom.UserService;
@@ -61,7 +62,7 @@ public class RegisterFormController implements Initializable {
                 txtNIC.getText(),
                 txtNumber.getText(),
                 txtEmail.getText(),
-                txtPassword.getText()
+                BCrypt.hashpw(txtPassword.getText(),BCrypt.gensalt(12))
         );
         System.out.println("Controll :" +user);
 
