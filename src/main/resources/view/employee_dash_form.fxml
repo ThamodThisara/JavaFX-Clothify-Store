@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.EmployeeDashFormController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="363.0" prefWidth="519.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EmployeeDashFormController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000016" height="280.0" layoutX="48.0" layoutY="42.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="424.0" />
+      <JFXButton layoutX="153.0" layoutY="138.0" onAction="#btnProductManagementOnAction" prefHeight="31.0" prefWidth="187.0" style="-fx-background-color: #3498db;" text="Product Management" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="153.0" layoutY="187.0" onAction="#btnOrderManagementOnAction" prefHeight="31.0" prefWidth="187.0" style="-fx-background-color: #3498db;" text="Order Management" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="153.0" layoutY="235.0" onAction="#btnSupplierManagementOnAction" prefHeight="31.0" prefWidth="187.0" style="-fx-background-color: #3498db;" text="Supplier Management" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="167.0" layoutY="83.0" text="Welcome !!">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+   </children>
 </AnchorPane>

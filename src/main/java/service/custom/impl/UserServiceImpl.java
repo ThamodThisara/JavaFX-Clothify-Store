@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User searchUser(long id) {
         UserDao repository = DaoFactory.getInstance().getDao(DaoType.USER);
-        UserEntity userEntity = repository.findById(id);
+        UserEntity userEntity = repository.findUserById(id);
         if (userEntity != null){
             return new ModelMapper().map(userEntity, User.class);
         } else {

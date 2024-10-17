@@ -1,5 +1,6 @@
 package repository.custom.impl;
 
+import entity.ProductEntity;
 import entity.UserEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -124,7 +125,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public UserEntity findById(long id) {
+    public UserEntity findUserById(long id) {
         Session session = HibernateUtil.getSession();
         UserEntity userEntity = null;
 
@@ -139,5 +140,29 @@ public class UserDaoImpl implements UserDao {
         return userEntity;
     }
 
+    @Override
+    public boolean addProduct(UserEntity entity) {
+        return false;
+    }
+
+    @Override
+    public ObservableList<ProductEntity> getAllProducts() {
+        return null;
+    }
+
+    @Override
+    public boolean deleteProduct(long id) {
+        return false;
+    }
+
+    @Override
+    public boolean updateProduct(UserEntity entity) {
+        return false;
+    }
+
+    @Override
+    public ProductEntity findProductById(long id) {
+        return null;
+    }
 
 }

@@ -46,7 +46,14 @@ public class AdminDashFormController {
 
     @FXML
     void btnProductManagementOnAction(ActionEvent event) {
-
+        try {
+            Stage stage = new Stage();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/product_management_form.fxml"))));
+            stage.setTitle("Product Management Form");
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
