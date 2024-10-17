@@ -1,6 +1,7 @@
 package repository.custom.impl;
 
 import entity.ProductEntity;
+import entity.SupplierEntity;
 import entity.UserEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -162,6 +163,31 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public ProductEntity findProductById(long id) {
+        return null;
+    }
+
+    @Override
+    public ObservableList<SupplierEntity> getAllSuppliers() {
+        return null;
+    }
+
+    @Override
+    public boolean addSupplier(UserEntity entity) {
+        return false;
+    }
+
+    @Override
+    public boolean updateSupplier(UserEntity entity) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteSupplier(long id) {
+        return false;
+    }
+
+    @Override
+    public SupplierEntity findSupplierById(long id) {
         return null;
     }
 

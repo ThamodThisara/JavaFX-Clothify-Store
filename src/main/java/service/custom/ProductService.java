@@ -8,7 +8,7 @@ import service.SuperService;
 public interface ProductService extends SuperService {
     boolean addProduct(Product product);
     ObservableList<ProductEntity> getAllProducts();
-    boolean deleteProduct(long l);
+    boolean deleteProduct(long id);
     boolean updateProduct(ProductEntity productEntity);
-    Product searchProduct(long l);
+    Product searchProduct(long id);
 }

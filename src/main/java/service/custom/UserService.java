@@ -12,5 +12,5 @@ public interface UserService extends SuperService {
     ObservableList<UserEntity> getAllUsers();
     boolean updateUser(UserEntity userEntity);
     boolean deleteUser(long id);
-    User searchUser(long l);
+    User searchUser(long id);
 }

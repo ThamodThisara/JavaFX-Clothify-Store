@@ -58,7 +58,14 @@ public class AdminDashFormController {
 
     @FXML
     void btnSupplierManagementOnAction(ActionEvent event) {
-
+        try {
+            Stage stage = new Stage();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/supplier_management_form.fxml"))));
+            stage.setTitle("Supplier Management Form");
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
