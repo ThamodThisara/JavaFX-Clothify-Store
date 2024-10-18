@@ -10,12 +10,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
+import model.CartTm;
 import model.Product;
 import model.User;
 import service.ServiceFactory;
@@ -71,7 +69,7 @@ public class PlaceOrderFormController implements Initializable {
     private Label lblOrderTime;
 
     @FXML
-    private TableView<?> tblCart;
+    private TableView<CartTm> tblCart;
 
     @FXML
     private TextField txtCategory;
@@ -121,8 +119,34 @@ public class PlaceOrderFormController implements Initializable {
 
     }
 
+    ObservableList<CartTm> cartTms = FXCollections.observableArrayList();
     @FXML
     void btnAddToCartOnAction(ActionEvent event) {
+        colProductId.setCellValueFactory(new PropertyValueFactory<>("productId"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        colSize.setCellValueFactory(new PropertyValueFactory<>("size"));
+        colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        colTotal.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
+
+        Long productId = Long.valueOf(cmbProductId.getValue());
+        String name = txtProductName.getText();
+        String category = txtCategory.getText();
+        String size = txtSize.getText();
+        Integer qty = Integer.valueOf(txtQty.getText());
+        Double unitPrice = Double.valueOf(txtUnitPrice.getText());
+        Double total = unitPrice * qty;
+
+        Integer productStock = Integer.valueOf(txtStock.getText());
+
+        if (productStock < qty) {
+            new Alert(Alert.AlertType.WARNING, "Not enough stock to add to cart").show();
+        } else {
+            cartTms.add(new CartTm(productId,name,category,size,qty,unitPrice,total));
+            tblCart.setItems(cartTms);
+            calcTotal();
+        }
 
     }
 
@@ -184,6 +208,14 @@ public class PlaceOrderFormController implements Initializable {
         txtSize.setText(product.getSize());
         txtStock.setText(String.valueOf(product.getQuantity()));
         txtUnitPrice.setText(String.valueOf(product.getUnitPrice()));
+    }
+
+    private void calcTotal() {
+        Double netTotal =0.0;
+        for (CartTm cartTm : cartTms) {
+            netTotal += cartTm.getTotalPrice();
+        }
+        lblNetTotal.setText(netTotal.toString());
     }
 
 }
