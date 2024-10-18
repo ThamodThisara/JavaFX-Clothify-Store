@@ -41,7 +41,14 @@ public class AdminDashFormController {
 
     @FXML
     void btnOrderManagementOnAction(ActionEvent event) {
-
+        try {
+            Stage stage = new Stage();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/place_order_form.fxml"))));
+            stage.setTitle("Place Order Form");
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

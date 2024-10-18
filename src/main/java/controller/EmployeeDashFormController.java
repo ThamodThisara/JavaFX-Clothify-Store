@@ -12,7 +12,14 @@ public class EmployeeDashFormController {
 
     @FXML
     void btnOrderManagementOnAction(ActionEvent event) {
-
+        try {
+            Stage stage = new Stage();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/place_order_form.fxml"))));
+            stage.setTitle("Product Management Form");
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
