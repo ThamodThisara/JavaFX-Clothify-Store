@@ -33,7 +33,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public UserEntity findByEmail(String email) {
-        System.out.println("findByEmail");
         Session session = HibernateUtil.getSession();
         UserEntity userEntity = null;
 

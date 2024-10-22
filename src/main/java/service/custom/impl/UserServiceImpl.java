@@ -1,6 +1,8 @@
 package service.custom.impl;
-
 import entity.UserEntity;
+import jakarta.mail.*;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import javafx.collections.ObservableList;
 import model.User;
 import model.UserLogin;
@@ -10,8 +12,18 @@ import repository.DaoFactory;
 import repository.custom.UserDao;
 import service.custom.UserService;
 import util.DaoType;
+import java.util.Properties;
+import java.util.concurrent.ThreadLocalRandom;
+
+import static jakarta.mail.Session.getInstance;
 
 public class UserServiceImpl implements UserService {
+    private static UserServiceImpl userServiceImplinstance;
+    private UserServiceImpl(){
+    }
+    public static UserServiceImpl getUserServiceImplinstance(){
+        return (userServiceImplinstance==null)? userServiceImplinstance = new UserServiceImpl(): userServiceImplinstance;
+    }
 
     @Override
     public int userLogin(UserLogin login) {
@@ -63,5 +75,57 @@ public class UserServiceImpl implements UserService {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public boolean isValidUser(String email) {
+        UserDao repository = DaoFactory.getInstance().getDao(DaoType.USER);
+        UserEntity userEntity = repository.findByEmail(email);
+        if (userEntity != null){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private Integer otp;
+    public boolean sendOtp(String email) {
+        otp = ThreadLocalRandom.current().nextInt(1000, 9999);
+
+        String host = "smtp.gmail.com";
+        String from = "clothifystore119@gmail.com";
+        String password = "fdty prkz qsqh dbow";
+
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.port", "587");
+
+        Session session = getInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(from, password);
+            }
+        });
+
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+            message.setSubject("Your OTP Code");
+            message.setText("Your OTP code is: " + otp);
+
+            Transport.send(message);
+            return true;
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean validateOtp(Integer enteredOtp) {
+        return otp.equals(enteredOtp);
     }
 }

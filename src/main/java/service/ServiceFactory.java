@@ -15,7 +15,7 @@ public class ServiceFactory {
 
     public <T extends SuperService>T getService(ServiceType type) {
         switch (type) {
-            case USER: return (T) new UserServiceImpl();
+            case USER: return (T) UserServiceImpl.getUserServiceImplinstance();
             case PRODUCT: return (T) new ProductServiceImpl();
             case SUPPLIER: return (T) new SupplierServiceImpl();
             case ORDER: return (T) new OrderServiceImpl();

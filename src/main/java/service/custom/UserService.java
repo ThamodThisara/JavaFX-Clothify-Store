@@ -13,4 +13,7 @@ public interface UserService extends SuperService {
     boolean updateUser(UserEntity userEntity);
     boolean deleteUser(long id);
     User searchUser(long id);
+    boolean isValidUser(String email);
+    boolean sendOtp(String email);
+    boolean validateOtp(Integer enteredOtp);
 }

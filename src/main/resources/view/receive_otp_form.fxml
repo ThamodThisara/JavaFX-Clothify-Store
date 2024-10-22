@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReceiveOtpFormController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000017" height="304.0" layoutX="72.0" layoutY="48.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="326.0" />
+      <Label layoutX="146.0" layoutY="156.0" text="Enter Your OTP :">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtOtp" layoutX="144.0" layoutY="181.0" prefHeight="26.0" prefWidth="182.0" />
+      <JFXButton layoutX="259.0" layoutY="215.0" onAction="#btnSubmitOnAction" style="-fx-background-color: #3498db;" text="Submit" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

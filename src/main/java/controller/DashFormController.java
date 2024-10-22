@@ -26,11 +26,8 @@ public class DashFormController {
     @FXML
     void btnLoginOnAction(ActionEvent event) {
         UserService userService = ServiceFactory.getInstance().getService(ServiceType.USER);
-
         UserLogin login = new UserLogin(txtUserName.getText(), txtPassword.getText());
-
         if(userService.userLogin(login) == -1){
-
             try {
                 Stage stage = new Stage();
                 stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/admin_dash_form.fxml"))));
@@ -60,6 +57,18 @@ public class DashFormController {
             Stage stage = new Stage();
             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/register_form.fxml"))));
             stage.setTitle("Register Form");
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void btnForgotPasswordOnAction(ActionEvent event) {
+        try {
+            Stage stage = new Stage();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/send_otp_form.fxml"))));
+            stage.setTitle("Send OTP Form");
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
