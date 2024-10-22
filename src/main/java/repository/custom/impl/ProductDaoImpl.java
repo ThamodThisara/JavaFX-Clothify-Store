@@ -1,8 +1,6 @@
 package repository.custom.impl;
 
-import entity.ProductEntity;
-import entity.SupplierEntity;
-import entity.UserEntity;
+import entity.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.hibernate.Session;
@@ -175,5 +173,30 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public SupplierEntity findSupplierById(long id) {
         return null;
+    }
+
+    @Override
+    public String getLastOrderId() {
+        return "";
+    }
+
+    @Override
+    public void saveOrder(Session session, OrderEntity orderEntity) {
+
+    }
+
+    @Override
+    public void saveOrderDetail(Session session, OrderDetailEntity entity) {
+
+    }
+
+    @Override
+    public ProductEntity getItemById(Session session, Long productId) {
+        return session.get(ProductEntity.class, productId);
+    }
+
+    @Override
+    public void updateQty(Session session, ProductEntity productEntity) {
+        session.update(productEntity);
     }
 }

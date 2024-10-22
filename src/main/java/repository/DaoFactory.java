@@ -1,6 +1,7 @@
 package repository;
 
 import repository.custom.UserDao;
+import repository.custom.impl.OrderDaoImpl;
 import repository.custom.impl.ProductDaoImpl;
 import repository.custom.impl.SupplierDaoImpl;
 import repository.custom.impl.UserDaoImpl;
@@ -18,6 +19,7 @@ public class DaoFactory {
             case USER: return (T)new UserDaoImpl();
             case PRODUCT: return (T)new ProductDaoImpl();
             case SUPPLIER: return (T)new SupplierDaoImpl();
+            case ORDER: return (T)new OrderDaoImpl();
         }
         return null;
     }

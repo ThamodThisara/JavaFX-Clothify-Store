@@ -189,5 +189,4 @@ public class SupplierManagementFormController implements Initializable {
         txtNumber.clear();
         txtItem.clear();
     }
-
 }

@@ -1,8 +1,6 @@
 package repository.custom.impl;
 
-import entity.ProductEntity;
-import entity.SupplierEntity;
-import entity.UserEntity;
+import entity.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.hibernate.Session;
@@ -35,7 +33,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public UserEntity findByEmail(String email) {
-
+        System.out.println("findByEmail");
         Session session = HibernateUtil.getSession();
         UserEntity userEntity = null;
 
@@ -44,6 +42,7 @@ public class UserDaoImpl implements UserDao {
             userEntity = session.createQuery(hql, UserEntity.class)
                     .setParameter("email", email)
                     .uniqueResult();
+            System.out.println(userEntity);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -51,6 +50,7 @@ public class UserDaoImpl implements UserDao {
         }
 
         return userEntity;
+
     }
 
     @Override
@@ -189,6 +189,31 @@ public class UserDaoImpl implements UserDao {
     @Override
     public SupplierEntity findSupplierById(long id) {
         return null;
+    }
+
+    @Override
+    public String getLastOrderId() {
+        return "";
+    }
+
+    @Override
+    public void saveOrder(Session session, OrderEntity orderEntity) {
+
+    }
+
+    @Override
+    public void saveOrderDetail(Session session, OrderDetailEntity entity) {
+
+    }
+
+    @Override
+    public ProductEntity getItemById(Session session, Long productId) {
+        return null;
+    }
+
+    @Override
+    public void updateQty(Session session, ProductEntity productEntity) {
+
     }
 
 }

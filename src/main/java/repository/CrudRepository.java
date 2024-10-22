@@ -1,9 +1,9 @@
 package repository;
 
-import entity.ProductEntity;
-import entity.SupplierEntity;
-import entity.UserEntity;
+import entity.*;
 import javafx.collections.ObservableList;
+import model.OrderDetail;
+import org.hibernate.Session;
 
 public interface CrudRepository <T> extends SuperDao{
     boolean addUser(T entity);
@@ -24,4 +24,10 @@ public interface CrudRepository <T> extends SuperDao{
     boolean updateSupplier(T entity);
     boolean deleteSupplier(long id);
     SupplierEntity findSupplierById(long id);
+
+    String getLastOrderId();
+    void saveOrder(Session session, OrderEntity orderEntity);
+    void saveOrderDetail(Session session, OrderDetailEntity entity);
+    ProductEntity getItemById(Session session, Long productId);
+    void updateQty(Session session, ProductEntity productEntity);
 }

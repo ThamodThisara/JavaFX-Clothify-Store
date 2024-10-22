@@ -13,17 +13,22 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
-import model.CartTm;
-import model.Product;
-import model.User;
+import model.*;
 import service.ServiceFactory;
+import service.custom.OrderService;
 import service.custom.ProductService;
 import service.custom.UserService;
 import util.ServiceType;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -103,6 +108,7 @@ public class PlaceOrderFormController implements Initializable {
         loadDateAndTime();
         loadUserIds();
         loadProductIds();
+        setOrderId();
 
         cmbUserId.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -115,9 +121,8 @@ public class PlaceOrderFormController implements Initializable {
                 searchProduct(Long.valueOf(newValue));
             }
         });
-
-
     }
+
 
     ObservableList<CartTm> cartTms = FXCollections.observableArrayList();
     @FXML
@@ -147,11 +152,25 @@ public class PlaceOrderFormController implements Initializable {
             tblCart.setItems(cartTms);
             calcTotal();
         }
-
     }
 
     @FXML
     void btnPlaceOrderOnAction(ActionEvent event) {
+        String orderId = lblOrderId.getText();
+        LocalDate date = LocalDate.parse(lblOrderDate.getText());
+        String customerName = txtCustomerName.getText();
+        String customerEmail = txtCustomerEmail.getText();
+        ArrayList<OrderDetail> orderDetails = new ArrayList<>();
+
+        cartTms.forEach(obj->{
+            orderDetails.add(
+                    new OrderDetail(
+                            lblOrderId.getText(),
+                            obj.getProductId(),
+                            obj.getQty()));
+        });
+        Order order = new Order(orderId,date,customerName,customerEmail,orderDetails);
+        new OrderController().placeOrder(order);
 
     }
 
@@ -167,7 +186,6 @@ public class PlaceOrderFormController implements Initializable {
                 new KeyFrame(Duration.seconds(1)));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-
     }
 
     private void loadUserIds(){
@@ -178,7 +196,6 @@ public class PlaceOrderFormController implements Initializable {
         allUsers.forEach(obj ->{
             userIdsObservableList.add(String.valueOf(obj.getId()));
         });
-
         cmbUserId.setItems(userIdsObservableList);
     }
 
@@ -190,7 +207,6 @@ public class PlaceOrderFormController implements Initializable {
         allProducts.forEach(obj ->{
             productIdsObservableList.add(String.valueOf(obj.getId()));
         });
-
         cmbProductId.setItems(productIdsObservableList);
     }
 
@@ -218,4 +234,22 @@ public class PlaceOrderFormController implements Initializable {
         lblNetTotal.setText(netTotal.toString());
     }
 
+    private void setOrderId() {
+        String lastId = getLastId();
+        if(lastId!=null){
+            String[] splitData = lastId.split("-");
+            String lastIdIntegerNumberAsString = splitData[1];
+            int lastIdAsInt = Integer.parseInt(lastIdIntegerNumberAsString);
+            lastIdAsInt++;
+            String generatedRegisterId = "R-"+lastIdAsInt;
+            lblOrderId.setText(generatedRegisterId);
+        }else{
+            lblOrderId.setText("R-1");
+        }
+    }
+
+    private String getLastId() {
+        OrderService orderService = ServiceFactory.getInstance().getService(ServiceType.ORDER);
+        return orderService.getLastId();
+    }
 }
