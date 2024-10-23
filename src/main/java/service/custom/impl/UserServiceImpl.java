@@ -77,10 +77,12 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    String inputEmail;
     @Override
     public boolean isValidUser(String email) {
+        inputEmail = email;
         UserDao repository = DaoFactory.getInstance().getDao(DaoType.USER);
-        UserEntity userEntity = repository.findByEmail(email);
+        UserEntity userEntity = repository.findByEmail(inputEmail);
         if (userEntity != null){
             return true;
         } else {
@@ -127,5 +129,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean validateOtp(Integer enteredOtp) {
         return otp.equals(enteredOtp);
+    }
+
+    @Override
+    public boolean changePassword(String password) {
+        UserDao repository = DaoFactory.getInstance().getDao(DaoType.USER);
+        UserEntity userEntity = repository.findByEmail(inputEmail);
+        userEntity.setPassword(BCrypt.hashpw(password,BCrypt.gensalt(12)));
+        return repository.updateUser(userEntity);
     }
 }

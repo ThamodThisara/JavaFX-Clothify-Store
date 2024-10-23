@@ -16,4 +16,5 @@ public interface UserService extends SuperService {
     boolean isValidUser(String email);
     boolean sendOtp(String email);
     boolean validateOtp(Integer enteredOtp);
+    boolean changePassword(String password);
 }
